@@ -1,0 +1,30 @@
+services:
+  db:
+    image: dariolopez05/php_pinoteca:v1
+    container_name: php_pinoteca
+    environment:
+      MYSQL_ROOT_PASSWORD: pinacoteca1234
+      MYSQL_DATABASE: pinacoteca
+      MYSQL_USER: davinci
+      MYSQL_PASSWORD: pinacoteca1234
+    ports:
+      - "3307:3306"
+
+  php:
+    image: dariolopez05/php_pinoteca:v1
+    container_name: php_pinoteca
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: contenedorPhpMyAdminDespliegue
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: contrasenyaRoot
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
